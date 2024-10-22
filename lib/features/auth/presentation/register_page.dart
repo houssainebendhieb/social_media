@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_media/features/auth/presentation/cubits/auth_cubit/auth_cubit.dart';
 import 'package:social_media/features/auth/presentation/widgets/my_button.dart';
 import 'package:social_media/features/auth/presentation/widgets/my_text_field.dart';
 
@@ -11,8 +13,23 @@ class RegisterPage extends StatefulWidget {
 
 class _LoginPageState extends State<RegisterPage> {
   final TextEditingController pwController = TextEditingController();
-  final TextEditingController confirmPwController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+
+  void register() {
+    final String email = emailController.text;
+    final String password = pwController.text;
+    final String name = nameController.text;
+    if (email.isEmpty || password.isEmpty || name.isEmpty) {
+      ScaffoldMessenger(
+        child: SnackBar(content: Text("email or password is empty")),
+      );
+    } else {
+      final authCubit = context.read<AuthCubit>();
+      authCubit.register(email, password, name);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,27 +52,27 @@ class _LoginPageState extends State<RegisterPage> {
                 height: 25,
               ),
               MyTextField(
+                  controller: nameController,
+                  hintText: "Name",
+                  obscureText: false),
+              const SizedBox(
+                height: 25,
+              ),
+              MyTextField(
                   controller: emailController,
-                  hintText: "Email",
+                  hintText: "email",
                   obscureText: false),
               const SizedBox(
                 height: 25,
               ),
               MyTextField(
                   controller: pwController,
-                  hintText: "Password",
+                  hintText: "  Password",
                   obscureText: true),
               const SizedBox(
                 height: 25,
               ),
-              MyTextField(
-                  controller: confirmPwController,
-                  hintText: "Confirm  Password",
-                  obscureText: true),
-              const SizedBox(
-                height: 25,
-              ),
-              MyButton(onTap: () {}, text: "Register"),
+              MyButton(onTap: register, text: "Register"),
               const SizedBox(
                 height: 50,
               ),

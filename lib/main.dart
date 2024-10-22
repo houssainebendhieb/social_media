@@ -29,8 +29,8 @@ void main() async {
             } else if (state is Authenticated) {
               return HomePage();
             }
-            print(state);
-            return Text("serveur down try again ");
+
+            return const Text("serveur down try again ");
           },
           listener: (index, state) {},
         )),
