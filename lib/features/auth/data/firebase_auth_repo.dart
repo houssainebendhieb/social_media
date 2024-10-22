@@ -3,11 +3,10 @@ import 'package:social_media/features/auth/domaine/entities/user.dart';
 import 'package:social_media/features/auth/domaine/repos/auth_repo.dart';
 
 class FirebaseAuthRepo implements AuthRepo {
-  final FirebaseAuthRepo firebaseAuthRepo = FirebaseAuthRepo();
 
   @override
   Future<AppUser?> getCurrentUser() async {
-    User? user = FirebaseAuth.instance.currentUser;
+    User? user =await  FirebaseAuth.instance.currentUser;
     if (user == null) {
       return null;
     }
@@ -24,7 +23,6 @@ class FirebaseAuthRepo implements AuthRepo {
           AppUser(uid: userCredential.user!.uid, email: email, name: "");
       return user;
     } catch (e) {
-      print(e);
       throw Exception("login Failed ");
     }
   }
@@ -33,7 +31,9 @@ class FirebaseAuthRepo implements AuthRepo {
   Future<void> logout() async {
     try {
       await FirebaseAuth.instance.signOut();
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
   }
 
   @override

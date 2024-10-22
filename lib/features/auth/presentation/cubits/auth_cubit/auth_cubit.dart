@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:social_media/features/auth/domaine/entities/user.dart';
@@ -11,6 +13,16 @@ class AuthCubit extends Cubit<AuthState> {
   AppUser? _currentUser;
 
   AppUser? get currentUser => _currentUser;
+  void checkUser() async {
+    AppUser? user = await authRepo.getCurrentUser();
+   
+    if (user == null) {
+      print("not");
+      emit(Unauthenticated());
+    } else {
+      emit(Authenticated(user!));
+    }
+  }
 
   Future<void> login(String email, String password) async {
     emit(AuthLoading());
