@@ -23,6 +23,8 @@ class _LoginPageState extends State<LoginPage> {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text("email or password not valid please try again")));
     } else {
+      print(email);
+      print(password);
       authCubit.login(email, password);
     }
   }

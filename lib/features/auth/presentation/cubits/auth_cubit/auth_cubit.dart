@@ -37,9 +37,11 @@ class AuthCubit extends Cubit<AuthState> {
     });
     if (appuser != null) {
       _currentUser = appuser;
+      print("one");
       emit(Authenticated(appuser!));
     } else {
-      emit(Unauthenticated(failedMessage: errMessage));
+      emit(Unauthenticated(
+          failedMessage: errMessage != null ? errMessage : " "));
     }
   }
 

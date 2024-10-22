@@ -6,7 +6,7 @@ import 'package:social_media/features/auth/presentation/auth_screen.dart';
 import 'package:social_media/features/auth/presentation/cubits/auth_cubit/auth_cubit.dart';
 import 'package:social_media/features/homescreen/presentation/home_page.dart';
 import 'package:social_media/light_mode.dart';
-import 'firebase_options.dart';
+import 'config/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
